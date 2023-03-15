@@ -12,7 +12,7 @@ def get_args():
     parser = argparse.ArgumentParser(
         description='Transform field(s) to field(s)')
 
-    subparsers = parser.add_subparsers(title='modes', dest='mode', required=True)
+    subparsers = parser.add_subparsers(title='modes', dest='mode')
     train_parser = subparsers.add_parser(
         'train',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
@@ -25,11 +25,14 @@ def get_args():
         'generate',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
-
+    generate_inv_parser = subparsers.add_parser('generate_inv',  formatter_class=argparse.ArgumentDefaultsHelpFormatter,)
+    infer_disp_parser = subparsers.add_parser('infer_disp',  formatter_class=argparse.ArgumentDefaultsHelpFormatter,)
 
     add_train_args(train_parser)
     add_test_args(test_parser)
     add_generate_args(generate_parser)
+    add_generate_args(generate_inv_parser)
+    add_generate_args(infer_disp_parser)
 
     args = parser.parse_args()
 
@@ -38,6 +41,10 @@ def get_args():
     elif args.mode == 'test':
         set_test_args(args)
     elif args.mode == 'generate':
+        set_generate_args(args)
+    elif args.mode == 'generate_inv':
+        set_generate_args(args)
+    elif args.mode == "infer_disp":
         set_generate_args(args)
 
     return args
